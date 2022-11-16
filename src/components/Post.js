@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 // import axios from "axios";
 import { connect } from "react-redux";
-import { redirect } from "react-router";
+import { Navigate } from "react-router-dom";
 import withRouter from "../hoc/withRouter";
+import { deletePost } from "../actions/postActions";
 import Pokeball from "../pokeball.png";
 
 class Post extends Component {
@@ -29,9 +30,34 @@ class Post extends Component {
   // };
 
   render() {
-    console.log(redirect);
+    // console.log(redirect);
     console.log(this.props);
     // const post = this.state.post ? (
+
+    // let postConditional;
+
+    // if (this.props.post) {
+    //   postConditional = (
+    //     <div style={{ marginTop: "50px" }} className="post card">
+    //       <img src={Pokeball} alt="A pokeball" />
+    //       <div className="card-content">
+    //         <h4 className="center red-text">{this.props.post.title}</h4>
+    //         <p>{this.props.post.body}</p>
+    //         <div className="center">
+    //           <button className="btn grey delete" onClick={this.handleClick}>
+    //             Delete Post
+    //           </button>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // } else if (!this.props.post && this.props.id) {
+    //   postConditional = (
+    //     <Navigate to="/" replace />
+    //     // <div className="center">Loading post...</div>
+    //   );
+    // } else <div className="center">Loading post...</div>;
+
     const post = this.props.post ? (
       <div style={{ marginTop: "50px" }} className="post card">
         <img src={Pokeball} alt="A pokeball" />
@@ -41,6 +67,7 @@ class Post extends Component {
           <div className="center">
             <button
               className="btn grey delete"
+              // onClick={this.handleClick}
               onClick={() => {
                 this.props.deletePost(this.props.id);
               }}
@@ -53,10 +80,12 @@ class Post extends Component {
         </div>
       </div>
     ) : (
-      <div className="center">Loading post...</div>
+      <Navigate to="/" replace />
+      // <div className="center">Loading post...</div>
     );
 
     return <div className="container home">{post}</div>;
+    // return <div className="container home">{postConditional}</div>;
   }
 }
 
@@ -70,7 +99,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deletePost: (id) => dispatch({ type: "DELETE_POST", payload: id }),
+    deletePost: (id) => dispatch(deletePost(id)),
+    // deletePost: (id) => dispatch({ type: "DELETE_POST", payload: id }),
   };
 };
 
