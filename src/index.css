@@ -12,6 +12,11 @@ body {
 }
 
 .home .post {
+  text-align: center;
   overflow: hidden;
   padding-left: 80px;
+}
+
+button.delete {
+  margin-top: 10px;
 }

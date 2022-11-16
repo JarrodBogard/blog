@@ -1,4 +1,5 @@
 const initState = {
+  users: [],
   posts: [
     {
       id: 1,
@@ -22,6 +23,14 @@ const initState = {
 };
 
 const rootReducer = (state = initState, action) => {
+  console.log(action);
+  if (action.type === "DELETE_POST") {
+    const copyState = state.posts.filter((post) => post.id !== action.payload);
+    return {
+      ...state,
+      posts: copyState,
+    };
+  }
   return state;
 };
 
